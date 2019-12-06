@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Amazon Transcribe WebSocket API - Sample Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="https://cdn.shoelace.style/1.0.0-beta24/shoelace.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <script type="text/javascript" src="lib/axios/dist/axios.standalone.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/hmac-sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/rollups/sha256.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/hmac.js"></script>
+    <script type="text/javascript" src="lib/CryptoJS/components/enc-base64.js"></script>
+    <script type="text/javascript" src="lib/url-template/url-template.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/sigV4Client.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/apiGatewayClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/simpleHttpClient.js"></script>
+    <script type="text/javascript" src="lib/apiGatewayCore/utils.js"></script>
+    <script type="text/javascript" src="apigClient.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+    <div class="app" id="photoDisplayDIV">
+    <!-- <div class="app" id="photoDisplayDIV"> -->
+        <div class="heading">
+            <h1 style="text-align:center">Photo Album</h1>
+        </div>
+        <div>
+            <h3 style="text-align:center">Search a photo</h3>
+        </div>
+        <div class="input-group">
+            <input id="search_text" type="text" class="form-control" placeholder="Search for a photo" name="search">
+
+            <div class="input-group-btn-default">
+                <button id="btn_search_text" class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+                <button class="btn btn-default" type="submit" onclick="searchPhotofromvoice()"><i class="fa fa-microphone"></i></button>
+            </div>
+        </div>
+        
+        <div>
+            <div>
+                <h3 style="text-align:center">Upload new photos</h3>
+            </div>
+            
+            <div class="input-group">
+                <input id="file_path" type="file" class="form-control upload" name="search"/>
+                <pre id="fileContent"></pre>
+                <div class="input-group-btn">
+                    <button id="btn_upload_file" class="btn btn-default" type="submit" ><i class="fa fa-cloud-upload"></i></button>
+                </div>
+            </div>
+        </div>
+        <p>After search, results will be displayed below:</p>
+    </div>
+   
+    
+    <p id="uploadText"></p>
+    <div>
+        <div class="banner-section" id="img-container">
+            <p id="displaytext"></p>
+        </div>
+    </div>
+
+</div>
+    <div class="container">
+        <div id="error" class="isa_error"></div>
+
+        <div class="row">
+            <div class="col">
+                <input type="hidden" id="access_id" placeholder="ACCESS ID" value="YOUR ACCESS KEY" />
+
+                <input type="hidden" id="secret_key" placeholder="SECRET KEY" value="YOUR SECRET KEY" />
+            </div>
+            <div class="col">
+            </div>
+        </div>
+        <textarea id="transcript" placeholder="Press Start and speak into your mic" rows="5"
+            readonly="readonly"></textarea>
+        <div class="row">
+            <div class="col">
+                <button id="start-button" class="button-xl" title="Start Transcription">
+                    <i class="fa fa-microphone"></i> Start
+                </button>
+                <button id="stop-button" class="button-xl" title="Stop Transcription" disabled="true"><i
+                        class="fa fa-stop-circle"></i> Stop
+                </button>
+                <button id="reset-button" class="button-xl button-secondary" title="Clear Transcript"> 
+                    Clear Transcript
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="dist/main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
